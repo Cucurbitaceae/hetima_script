@@ -1,0 +1,29 @@
+Package: pumpkin.seeds
+Type: Package
+Title: Integrate Awesome R Package and Web Services
+Version: 0.1.0.9999
+Authors@R: c(person(given = "Shinya", family = "Uryu", 
+                                            email = "suika1127@gmail.com", 
+                                            role  = c("aut", "cre")))
+Description: More about what it does (maybe more than one line)
+License: MIT + file LICENSE
+Imports:
+  dplyr,
+  ggplot2,
+  googlesheets,
+  gmailr,
+  Hmisc,
+  lubridate,
+  knitr,
+  magrittr,
+  readr,
+  rdrop2,
+  RGA,
+  rvest,
+  slackr,
+  xml2
+Remotes:
+  artemklevtsov/RGA,
+  jimhester/gmailr
+LazyData: TRUE
+RoxygenNote: 5.0.1
