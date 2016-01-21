@@ -86,7 +86,7 @@ notice_new_rpkg <- function(path2auth        = ".httr-oauth",
             knitr::kable(df_new_pkg, format = "html"),
             paste0(
               "install.packages(pkgs = ",
-              deparse(df_new_pkg$Package, control = "all") ,
+              deparse(df_new_pkg$Package, control = "all", width.cutoff = 500L) ,
               ")"
             ),
             sep = "<br>"
