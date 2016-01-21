@@ -2,7 +2,7 @@
 % Please edit documentation in R/ga_report.R
 \name{ga_report}
 \alias{ga_report}
-\title{Google Analytics daily report}
+\title{Google Analytics daily report.}
 \usage{
 ga_report(track_url = NULL, auto_save = TRUE)
 }
@@ -14,6 +14,6 @@ ga_report(track_url = NULL, auto_save = TRUE)
 \item{...}{other function arguments.}
 }
 \description{
-Google Analytics daily report
+Google Analytics daily report.
 }
 

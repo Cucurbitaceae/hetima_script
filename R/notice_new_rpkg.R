@@ -15,6 +15,7 @@
 #' @param path2gmailr_json path to google auth json file
 #' @param address2sent character. 
 #' @param address_from character. ex. Uryu Shinya <suika1127@gmail.com>
+#' @name notice_new_rpkg
 #' @examples 
 #' \dontrun{
 #' notice_new_rpkg(".httr-oauth", 

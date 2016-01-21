@@ -1,4 +1,4 @@
-#' Google Analytics daily report
+#' Google Analytics daily report.
 #' 
 #' @importFrom dplyr bind_cols
 #' @importFrom dplyr filter
@@ -9,6 +9,7 @@
 #' @param track_url character. ex. http://qiita.com
 #' @param auto_save logical.
 #' @param ... other function arguments. 
+#' @name ga_report
 #' @export
 ga_report <- function(track_url = NULL, auto_save = TRUE) {
   
