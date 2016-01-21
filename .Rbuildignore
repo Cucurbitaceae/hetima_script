@@ -4,3 +4,5 @@
 ^README-.*\.png$
 ^\.travis\.yml$
 ^\.httr-oauth$
+^\.ga-token\.rds$
+^NEWS.md$
