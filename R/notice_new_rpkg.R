@@ -31,7 +31,7 @@ notice_new_rpkg <-
            address_from     = "<address_from>") {
     # Flag) Exit authorize files?
     if (!file.exists(".httr-oauth")) {
-      stop("Try gmail_auth() to ciliate your .httr-oauth file.", call. = FALSE)
+      stop("Try gmail_auth() to create your .httr-oauth file.", call. = FALSE)
     } else {
       
       temp_dir <- tempdir()
