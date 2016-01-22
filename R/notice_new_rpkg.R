@@ -26,24 +26,20 @@
 #' }
 #' @export
 notice_new_rpkg <-
-  function(id               = Sys.getenv("GMAIL_TOKEN"),
-           secret           = Sys.getenv("GMAIL_SECRET"),
+  function(id = Sys.getenv("GMAIL_TOKEN"),
+           secret = Sys.getenv("GMAIL_SECRET"),
            address2sent     = "<address_to_sent>",
            address_from     = "<address_from>",
            path2auth        = ".httr-oauth") {
     # Flag) Exit authorize files?
-    if (!file.exists(".httr-oauth")) {
+    if (!file.exists(path2auth)) {
       stop("Try gmail_auth() to create your .httr-oauth file.", call. = FALSE)
     } else {
-      
-      temp_dir <- tempdir()
-      
-      file.copy(from = ".httr-oauth",
-                to = paste(temp_dir, ".httr-oauth" %>% gsub(".+/|.+/.+%", "", .), sep = "/"))
-      
-      gmailr::gmail_auth(scope = "compose",
-                         id = id,
-                         secret = secret)
+      gmailr::gmail_auth(
+        id = Sys.getenv("GMAIL_TOKEN"),
+        secret = Sys.getenv("GMAIL_SECRET"),
+        scope = "compose"
+      )
       
       available_list <-
         installed.packages() %>% as.data.frame(stringsAsFactors = FALSE) %$% Package
