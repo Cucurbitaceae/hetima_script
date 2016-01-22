@@ -6,16 +6,18 @@
 \usage{
 notice_new_rpkg(id = Sys.getenv("GMAIL_TOKEN"),
   secret = Sys.getenv("GMAIL_SECRET"), address2sent = "<address_to_sent>",
-  address_from = "<address_from>")
+  address_from = "<address_from>", path2auth = ".httr-oauth")
 }
 \arguments{
-\item{id}{character. the client_id to use for authentication.}
+\item{id}{character. the client_id to use for authentication}
 
-\item{secret}{character. the client secret to use for authentication.}
+\item{secret}{character. the client secret to use for authentication}
 
 \item{address2sent}{character. received e-mail address}
 
 \item{address_from}{character. ex. Uryu Shinya <suika1127@gmail.com>}
+
+\item{path2auth}{path to .httr-oauth}
 }
 \description{
 Notice new released r-packages.
