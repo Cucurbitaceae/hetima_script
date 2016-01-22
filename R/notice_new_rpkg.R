@@ -11,56 +11,42 @@
 #' @importFrom rvest html_node
 #' @importFrom rvest html_table
 #' @importFrom xml2 read_html
-#' @param path2auth path to .httr-oauth 
-#' @param path2gmailr_json path to google auth json file
-#' @param address2sent character. 
+#' @param id character. the client_id to use for authentication.
+#' @param secret character. the client secret to use for authentication.
+#' @param address2sent character. received e-mail address
 #' @param address_from character. ex. Uryu Shinya <suika1127@gmail.com>
 #' @name notice_new_rpkg
 #' @examples 
 #' \dontrun{
-#' notice_new_rpkg(".httr-oauth", 
-#'                 "auth_gmailr.json", 
-#'                 "u_suika.30700@m.evernote.com", "
-#'                  Uryu Shinya <suika1127@gmail.com>")
+#' notice_new_rpkg(id           = Sys.getenv("GMAIL_TOKEN"),
+#'                 secret       = Sys.getenv("GMAIL_SECRET")
+#'                 address2sent = "u_suika.30700@m.evernote.com",
+#'                 address_from = "Uryu Shinya <suika1127@gmail.com>")
 #' }
 #' @export
-notice_new_rpkg <- function(path2auth        = ".httr-oauth",
-                            path2gmailr_json = "auth_gmailr.json",
-                            address2sent     = "<address_to_sent>",
-                            address_from     = "<address_from>") {
-  # Flag) Exit authorize files?
-  if (!file.exists(path2auth)) {
-    stop("Try gmail_auth() to ciliate your .httr-oauth file.", call. = FALSE)
-  } else {
-    if (!file.exists(path2gmailr_json)) {
-      stop("Can't find secret_file. Please, check secret_file path.",
-           call. = FALSE)
-      
+notice_new_rpkg <-
+  function(id               = Sys.getenv("GMAIL_TOKEN"),
+           secret           = Sys.getenv("GMAIL_SECRET"),
+           address2sent     = "<address_to_sent>",
+           address_from     = "<address_from>") {
+    # Flag) Exit authorize files?
+    if (!file.exists(".httr-oauth")) {
+      stop("Try gmail_auth() to ciliate your .httr-oauth file.", call. = FALSE)
     } else {
+      
       temp_dir <- tempdir()
-      file.copy(from = path2gmailr_json,
-                to   = paste(
-                  temp_dir,
-                  path2gmailr_json %>% gsub(".+/|.+/.+%", "", .),
-                  sep = "/"
-                ))
-      file.copy(from = path2auth,
-                to = paste(temp_dir, path2auth %>% gsub(".+/|.+/.+%", "", .), sep = "/"))
-      gmailr::gmail_auth(
-        secret_file = paste(
-          temp_dir,
-          path2gmailr_json %>% gsub(".+/|.+/.+%", "", .),
-          sep = "/"
-        ),
-        scope = "compose"
-      )
+      
+      file.copy(from = ".httr-oauth",
+                to = paste(temp_dir, ".httr-oauth" %>% gsub(".+/|.+/.+%", "", .), sep = "/"))
+      
+      gmailr::gmail_auth(scope = "compose",
+                         id = id,
+                         secret = secret)
       
       available_list <-
         installed.packages() %>% as.data.frame(stringsAsFactors = FALSE) %$% Package
       df_new_pkg <-
-        xml2::read_html(
-          "https://cran.r-project.org/web/packages/available_packages_by_date.html"
-        ) %>%
+        xml2::read_html("https://cran.r-project.org/web/packages/available_packages_by_date.html") %>%
         rvest::html_node(., css = "table") %>%
         rvest::html_table() %>%
         dplyr::filter(
@@ -86,7 +72,11 @@ notice_new_rpkg <- function(path2auth        = ".httr-oauth",
             knitr::kable(df_new_pkg, format = "html"),
             paste0(
               "install.packages(pkgs = ",
-              deparse(df_new_pkg$Package, control = "all", width.cutoff = 500L) ,
+              deparse(
+                df_new_pkg$Package,
+                control = "all",
+                width.cutoff = 500L
+              ) ,
               ")"
             ),
             sep = "<br>"
@@ -100,4 +90,3 @@ notice_new_rpkg <- function(path2auth        = ".httr-oauth",
       }
     }
   }
-}

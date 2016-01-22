@@ -4,16 +4,16 @@
 \alias{notice_new_rpkg}
 \title{Notice new released r-packages.}
 \usage{
-notice_new_rpkg(path2auth = ".httr-oauth",
-  path2gmailr_json = "auth_gmailr.json", address2sent = "<address_to_sent>",
+notice_new_rpkg(id = Sys.getenv("GMAIL_TOKEN"),
+  secret = Sys.getenv("GMAIL_SECRET"), address2sent = "<address_to_sent>",
   address_from = "<address_from>")
 }
 \arguments{
-\item{path2auth}{path to .httr-oauth}
+\item{id}{character. the client_id to use for authentication.}
 
-\item{path2gmailr_json}{path to google auth json file}
+\item{secret}{character. the client secret to use for authentication.}
 
-\item{address2sent}{character.}
+\item{address2sent}{character. received e-mail address}
 
 \item{address_from}{character. ex. Uryu Shinya <suika1127@gmail.com>}
 }
@@ -22,10 +22,10 @@ Notice new released r-packages.
 }
 \examples{
 \dontrun{
-notice_new_rpkg(".httr-oauth", 
-                "auth_gmailr.json", 
-                "u_suika.30700@m.evernote.com", "
-                 Uryu Shinya <suika1127@gmail.com>")
+notice_new_rpkg(id           = Sys.getenv("GMAIL_TOKEN"),
+                secret       = Sys.getenv("GMAIL_SECRET")
+                address2sent = "u_suika.30700@m.evernote.com",
+                address_from = "Uryu Shinya <suika1127@gmail.com>")
 }
 }
 
