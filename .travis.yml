@@ -12,8 +12,8 @@ install:
   - ./pkg-build.sh install_deps
   - ./pkg-build.sh install_github artemklevtsov/RGA jimhester/gmailr
 
-#script:
-#  - ./pkg-build.sh run_tests
+script:
+  - ./pkg-build.sh run_tests
 
 after_failure:
   - ./pkg-build.sh dump_logs
